@@ -1,0 +1,53 @@
+{
+  "name": "live-portfolio-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open-source live-portfolio + live-resume + audience-capture template (Next.js).",
+  "license": "MIT",
+  "scripts": {
+    "dev": "velite && next dev",
+    "build": "velite && next build",
+    "start": "next start",
+    "velite": "velite",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:db": "node scripts/db-test.mjs",
+    "test:e2e": "playwright test",
+    "clean:examples": "node scripts/clean-examples.mjs"
+  },
+  "dependencies": {
+    "@react-email/components": "^1.0.12",
+    "@supabase/supabase-js": "^2.108.2",
+    "clsx": "^2.1.1",
+    "jose": "^6.2.3",
+    "lucide-react": "^1.20.0",
+    "next": "16.2.9",
+    "next-themes": "^0.4.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-icons": "^5.6.0",
+    "resend": "^6.12.4",
+    "server-only": "^0.0.1",
+    "svix": "^1.95.2",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "pg": "^8.21.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "velite": "^0.3.1",
+    "vitest": "^4.1.9"
+  }
+}

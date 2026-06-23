@@ -1,0 +1,41 @@
+---
+title: "Frostpad"
+slug: "frostpad"
+summary: "A keyboard-first scratchpad that syncs end-to-end-encrypted notes across devices."
+status: "building"
+startDate: "2026-06-02"
+tech: ["Next.js", "TypeScript", "SQLite", "Tailwind"]
+skills: ["Local-first sync", "End-to-end encryption", "Conflict resolution"]
+focus: "technical"
+updates:
+  - date: "2026-06-04"
+    note: "Scaffolded the editor and the local-first store — typing feels instant, even offline."
+  - date: "2026-06-14"
+    note: "Encrypted sync working across two devices, with last-write-wins conflict handling."
+    milestone: true
+---
+
+## The idea / why it mattered
+
+I wanted a scratchpad that opens instantly, works offline, and never ships my notes to
+someone else's server in the clear. Frostpad is that: local-first, end-to-end encrypted,
+and keyboard-first.
+
+## Challenges
+
+Local-first sync is deceptively hard — two devices editing offline will always disagree
+eventually, and you have to resolve that without quietly losing anyone's work.
+
+## Solutions
+
+A small append-only change log per note plus a deterministic merge, so the same edits land
+the same way on every device. Encryption happens before anything leaves the machine.
+
+## What I learned
+
+"Instant" is a feature you have to defend constantly — every sync, encrypt, and render step
+is a chance to add latency you'll regret.
+
+## Tech & takeaways
+
+Next.js with a local SQLite store is a surprisingly capable base for a local-first app.

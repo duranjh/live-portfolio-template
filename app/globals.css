@@ -1,0 +1,347 @@
+@import "tailwindcss";
+
+/* Class-based dark mode, driven by next-themes (attribute="class"). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================
+   Design tokens — locked "indigo on graphite". Light = default.
+   Raw semantic vars switch on .dark; @theme maps them to utilities.
+   ============================================================ */
+:root {
+  --bg: #fbfafd;
+  --surface: #ffffff;
+  --subtle: #f2f2f5;
+  --raised: #ffffff;
+  --border: #e2e1ea;
+  --hairline: rgba(20, 22, 30, 0.08);
+  --text: #1e1e22;
+  --text-2: #52525e;
+  --muted: #7e7e88;
+  --accent: #5b53d6;
+  --accent-ink: #ffffff;
+  --accent-deep: #0c0a22;
+  --accent-soft: rgba(91, 83, 214, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(20, 22, 30, 0.08);
+  --shadow-card: 0 14px 30px -18px rgba(20, 22, 30, 0.22);
+  --shadow-pop: 0 24px 60px -28px rgba(20, 22, 30, 0.28);
+}
+
+.dark {
+  --bg: #151518;
+  --surface: #1a1a1d;
+  --subtle: #16181c;
+  --raised: #1e1e22;
+  --border: #27272c;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --text: #f4f4f6;
+  --text-2: #a9a9b2;
+  --muted: #6b6b74;
+  --accent: #8c86f2;
+  --accent-ink: #0c0a22;
+  --accent-deep: #0c0a22;
+  --accent-soft: rgba(140, 134, 242, 0.16);
+  --glass-bg: rgba(20, 22, 30, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-card: 0 18px 40px -20px rgba(0, 0, 0, 0.9);
+  --shadow-pop: 0 26px 60px -28px rgba(0, 0, 0, 0.9);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-raised: var(--raised);
+  --color-border: var(--border);
+  --color-fg: var(--text);
+  --color-fg-2: var(--text-2);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-xs: 5px;
+  --radius-sm: 9px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--accent-soft);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+/* Frosted glass (nav, popovers, modals, toast). */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(30px) saturate(1.9);
+  backdrop-filter: blur(30px) saturate(1.9);
+  border: 1px solid var(--glass-border);
+}
+
+/* Long-form MDX prose (project / guide / legal bodies) — token-styled. */
+.prose-lp {
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+.prose-lp > * + * {
+  margin-top: 1em;
+}
+.prose-lp h2,
+.prose-lp h3 {
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 84px;
+}
+.prose-lp h2 {
+  font-size: 1.4rem;
+  margin-top: 2em;
+}
+.prose-lp h3 {
+  font-size: 1.15rem;
+  margin-top: 1.6em;
+}
+.prose-lp p,
+.prose-lp li {
+  color: var(--text-2);
+}
+.prose-lp a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-lp ul,
+.prose-lp ol {
+  padding-left: 1.25em;
+}
+.prose-lp ul {
+  list-style: disc;
+}
+.prose-lp ol {
+  list-style: decimal;
+}
+.prose-lp li + li {
+  margin-top: 0.35em;
+}
+.prose-lp code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--subtle);
+  padding: 0.15em 0.4em;
+  border-radius: 5px;
+}
+.prose-lp pre {
+  background: var(--subtle);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1em;
+  overflow-x: auto;
+}
+.prose-lp pre code {
+  background: none;
+  padding: 0;
+}
+.prose-lp blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1em;
+  color: var(--text-2);
+}
+.prose-lp img {
+  border-radius: 12px;
+}
+
+/* ============================================================
+   Motion — immersive, with a reduced-motion fallback (fades only)
+   ============================================================ */
+@keyframes lp-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes lp-glass-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes lp-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@keyframes lp-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes lp-toast {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-fade-up { animation: lp-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-glass-in { animation: lp-glass-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-toast { animation: lp-toast 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.spin { animation: lp-spin 0.7s linear infinite; }
+.pulse-dot { animation: lp-dot 2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-fade-up, .animate-glass-in, .animate-toast {
+    animation: lp-fade-up 0.12s ease both;
+  }
+}
+
+/* ============================================================
+   Resume PDF — clean, single-column, ATS-friendly print document.
+   Hidden on screen; window.print() ("Download PDF" → Save as PDF) reveals ONLY this,
+   so the file is real selectable text (no nav/buttons/dead links, no graphics/tables).
+   ============================================================ */
+.resume-print-doc { display: none; }
+
+@media print {
+  header,
+  footer {
+    display: none !important;
+  }
+  /* Hide the interactive resume; keep only the clean document. */
+  .resume-root > *:not(.resume-print-doc) {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .resume-print-doc {
+    display: block !important;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 10.5pt;
+    line-height: 1.32;
+  }
+  .resume-print-doc * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  @page {
+    margin: 0.5in 0.55in;
+  }
+
+  .rp-head {
+    text-align: center;
+    margin-bottom: 9pt;
+  }
+  .rp-name {
+    font-size: 17pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .rp-contact {
+    font-size: 9.5pt;
+    margin-top: 2pt;
+  }
+  .rp-section {
+    margin-top: 11pt;
+  }
+  .rp-h {
+    font-size: 10.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 0.75pt solid #000;
+    padding-bottom: 1.5pt;
+    margin-bottom: 4pt;
+  }
+  .rp-summary {
+    margin: 0;
+  }
+  .rp-skills {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .rp-skills li {
+    margin: 1.5pt 0;
+  }
+  .rp-skills-label {
+    font-weight: 700;
+  }
+  .rp-entry {
+    margin-top: 6pt;
+    break-inside: avoid;
+  }
+  .rp-entry:first-of-type {
+    margin-top: 2pt;
+  }
+  .rp-entry-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12pt;
+    font-weight: 700;
+  }
+  .rp-entry-date {
+    white-space: nowrap;
+  }
+  .rp-entry-role {
+    margin: 0;
+    font-style: italic;
+  }
+  .rp-bullets {
+    margin: 2pt 0 0;
+    padding-left: 16pt;
+  }
+  .rp-bullets li {
+    list-style: disc;
+    margin: 1pt 0;
+  }
+  .rp-tools {
+    margin: 2pt 0 0;
+    font-size: 9pt;
+  }
+}
+
+/* ============================================================
+   Guide PDF — clean print of a guide article (Download → PDF → Save as PDF).
+   `header, footer` are already hidden by the resume print block above; here we drop the
+   guide's own chrome (controls, badges, cover, TOC, CTA) and ink the article black.
+   ============================================================ */
+@media print {
+  .guide-no-print {
+    display: none !important;
+  }
+  .guide-doc {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .guide-doc,
+  .guide-doc * {
+    color: #000 !important;
+  }
+}
